@@ -1,6 +1,8 @@
 {
   "Lua.diagnostics.globals": [
-    "love"
+    "love",
+    "class_commons",
+    "common"
   ],
   "Lua.diagnostics.disable": [
     "deprecated"
