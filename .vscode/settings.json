@@ -5,6 +5,8 @@
     "common"
   ],
   "Lua.diagnostics.disable": [
-    "deprecated"
+    "deprecated",
+    "lowercase-global",
+    "redundant-parameter"
   ]
 }
