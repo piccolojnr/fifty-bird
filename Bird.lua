@@ -39,6 +39,6 @@ function Bird:update(dt)
         self.dy = -3
     end
 
-
+    -- self.y = self.y + self.dy
     self.y = math.min(VIRTUAL_HEIGHT - self.height - 15, math.max(0, self.y + self.dy))
 end
