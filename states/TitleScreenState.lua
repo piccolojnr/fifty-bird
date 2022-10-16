@@ -13,4 +13,5 @@ function TitleScreenState:render()
 
     love.graphics.setFont(mediumFont)
     love.graphics.printf('Press Enter', 0, 100, VIRTUAL_WIDTH, 'center')
+
 end

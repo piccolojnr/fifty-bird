@@ -1,9 +1,5 @@
 {
-  "Lua.diagnostics.globals": [
-    "love",
-    "class_commons",
-    "common"
-  ],
+  "Lua.diagnostics.globals": ["love", "class_commons", "common"],
   "Lua.diagnostics.disable": [
     "deprecated",
     "lowercase-global",
@@ -11,6 +7,8 @@
   ],
   "workbench.editorAssociations": {
     "*.wav": "vscode.audioPreview"
-  }
-  
+  },
+  "Lua.runtime.version": "LuaJIT",
+  "Lua.workspace.library": ["${3rd}/love2d/library"],
+  "Lua.workspace.checkThirdParty": false
 }

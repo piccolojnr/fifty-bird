@@ -72,9 +72,11 @@ function PlayState:update(dt)
             if self.bird:collides(pipe) then
                 sounds['explosion']:play()
                 sounds['hurt']:play()
-
+                score = saveData.load('score')
+                score.highScore = math.max(score.highScore, self.score)
+                saveData.save(score, 'score')
                 gStateMachine:change('score', {
-                    score = self.score
+                    score = self.score,
                 })
             end
         end
@@ -84,6 +86,8 @@ function PlayState:update(dt)
     if self.bird.y > VIRTUAL_HEIGHT - 15 then
         sounds['explosion']:play()
         sounds['hurt']:play()
+        score = saveData.load('score')
+        score.highScore = math.max(score.highScore, self.score)
         gStateMachine:change('score', {
             score = self.score
         })

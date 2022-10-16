@@ -1,5 +1,6 @@
 push = require 'push'
 Class = require 'class'
+saveData = require 'saveData'
 
 require 'Bird'
 require 'Pipe'
@@ -42,6 +43,8 @@ function love.load()
     love.window.setTitle('Fifty Bird')
 
 
+
+
     -- initializing our fonts
     smallFont = love.graphics.newFont('fonts/font.ttf', 8)
     mediumFont = love.graphics.newFont('fonts/flappy.ttf', 14)
@@ -60,6 +63,12 @@ function love.load()
         ['countdown'] = love.audio.newSource('sounds/countDown.wav', 'static'),
         ['countdownend'] = love.audio.newSource('sounds/countDownEnd.wav', 'static'),
         ['10point'] = love.audio.newSource('sounds/10point.wav', 'static')
+    }
+    -- initializing medal sprites
+    medal = {
+        ['first'] = love.graphics.newImage('images/medal-1.png'),
+        ['second'] = love.graphics.newImage('images/medal-2.png'),
+        ['third'] = love.graphics.newImage('images/medal-3.png'),
     }
 
     -- kick off music
@@ -81,7 +90,10 @@ function love.load()
         ['countdown'] = function() return CountdownState() end,
     }
 
-    gStateMachine:change('title')
+    -- gStateMachine:change('title')
+    gStateMachine:change('score', {
+        score = 3
+    })
 
 
 
