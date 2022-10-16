@@ -50,6 +50,23 @@ function love.load()
     love.graphics.setFont(flappyFont)
 
 
+    -- initializing sounds
+    sounds = {
+        ['jump'] = love.audio.newSource('sounds/jump.wav', 'static'),
+        ['explosion'] = love.audio.newSource('sounds/explosion.wav', 'static'),
+        ['hurt'] = love.audio.newSource('sounds/hurt.wav', 'static'),
+        ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
+        ['music'] = love.audio.newSource('sounds/marios_way.mp3', 'static'),
+        ['countdown'] = love.audio.newSource('sounds/countDown.wav', 'static'),
+        ['countdownend'] = love.audio.newSource('sounds/countDownEnd.wav', 'static'),
+        ['10point'] = love.audio.newSource('sounds/10point.wav', 'static')
+    }
+
+    -- kick off music
+    sounds['music']:setLooping(true)
+    sounds['music']:play()
+
+
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         vsync = true,
         fullscreen = false,
@@ -68,9 +85,10 @@ function love.load()
 
 
 
-    math.randomseed(os.time())
+    -- math.randomseed(os.time())
 
     love.keyboard.keyspressed = {}
+    love.mouse.buttonspressed = {}
 end
 
 function love.resize(w, h)
@@ -84,6 +102,14 @@ function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
     end
+end
+
+function love.mousepressed(x, y, button)
+    love.mouse.buttonspressed[button] = true
+end
+
+function love.mouse.wasPressed(key)
+    return love.mouse.buttonspressed[key]
 end
 
 function love.keyboard.wasPressed(key)
@@ -105,6 +131,8 @@ function love.update(dt)
 
     -- reset input table
     love.keyboard.keyspressed = {}
+    love.mouse.buttonspressed = {}
+
 end
 
 function love.draw()

@@ -16,6 +16,9 @@ function PlayState:init()
     self.score = 0
     -- initialize our last recorded y value for a gap placement
     self.lastY = -PIPE_HEIGHT + math.random(80) + 20
+
+    -- interval
+    self.spawnInterval = 1
 end
 
 function PlayState:update(dt)
@@ -23,7 +26,7 @@ function PlayState:update(dt)
     self.timer = self.timer + dt
 
     -- spawn a new pipe pair every second and a half
-    if self.timer > 2 then
+    if self.timer > self.spawnInterval then
         -- modify the lastY
         local y = math.max(-PIPE_HEIGHT + 10,
             math.min(self.lastY + math.random(-20, 20), VIRTUAL_HEIGHT - 90 - PIPE_HEIGHT))
@@ -34,6 +37,10 @@ function PlayState:update(dt)
 
         -- reset timer
         self.timer = 0
+
+        -- reset interval
+        self.spawnInterval = math.random(2, 5)
+
     end
 
     -- for every pair of pipes
@@ -43,7 +50,11 @@ function PlayState:update(dt)
         if not pair.scored then
             if pair.x + PIPE_WIDTH < self.bird.x then
                 self.score = self.score + 1
+                if self.score % 10 == 0 then
+                    sounds['10point']:play()
+                end
                 pair.scored = true
+                sounds['score']:play()
             end
         end
 
@@ -59,6 +70,9 @@ function PlayState:update(dt)
     for k, pair in pairs(self.pipePairs) do
         for l, pipe in pairs(pair.pipes) do
             if self.bird:collides(pipe) then
+                sounds['explosion']:play()
+                sounds['hurt']:play()
+
                 gStateMachine:change('score', {
                     score = self.score
                 })
@@ -68,6 +82,8 @@ function PlayState:update(dt)
 
     -- reset if we get to the ground
     if self.bird.y > VIRTUAL_HEIGHT - 15 then
+        sounds['explosion']:play()
+        sounds['hurt']:play()
         gStateMachine:change('score', {
             score = self.score
         })

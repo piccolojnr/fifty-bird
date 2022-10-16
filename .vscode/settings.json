@@ -8,5 +8,9 @@
     "deprecated",
     "lowercase-global",
     "redundant-parameter"
-  ]
+  ],
+  "workbench.editorAssociations": {
+    "*.wav": "vscode.audioPreview"
+  }
+  
 }
